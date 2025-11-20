@@ -1,0 +1,1 @@
+const pseudo = document.getElementById("pseudo");
