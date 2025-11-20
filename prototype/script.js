@@ -11,7 +11,8 @@ document.addEventListener("keyup", keyUp);
 
 let xObstacle = canvas.width/2;
 let yObstacle = -50; // La position de l'obstacle
-let dyObstacle=+3; // Le mouvement infinitésimal (en gros la vitesse de l'obstacle par frame)
+let dxObstacle =-1;
+let dyObstacle =+3; // Le mouvement infinitésimal (en gros la vitesse de l'obstacle par frame)
 
 let x = canvas.width/2;
 let y = canvas.height/2; // La position de l'objet
@@ -73,11 +74,10 @@ function drawBall() // Dessine la balle (joueur)
     // En gros ça marche comme sur Scratch avec le pinceau levé et tt #rpz
 }
 
-function drawRect() // Dessine LES rectangles (obstacles)
+function drawObstacle() // Dessine l'obstacle
 {
     ctx.beginPath();
-    ctx.rect(xObstacle-100, yObstacle, 800, 50); // x, y, largeur, hauteur
-    ctx.rect(xObstacle+100, yObstacle, -800, 50);
+    ctx.arc(xObstacle, yObstacle, 30, 0, Math.PI * 2, false);
     ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
@@ -100,10 +100,19 @@ function draw()
     } // On change la position du joueur si un bouton est appuyé
 
     drawBall(); // On dessine le joueur et les obstacles
-    drawRect();
+    drawObstacle();
+
+    xObstacle += dxObstacle;
     yObstacle += dyObstacle; // On déplace l'obstacle selon sa vitesse
 
     if(yObstacle>480){ // Quand l'obstacle sort de l'écran
+        if(Math.random()*10 < 5)
+        {
+            dxObstacle = -Math.random()*2;
+        }
+        else {
+            dxObstacle = Math.random()*2;
+        }
         yObstacle = -50; // On remet l'obstacle en haut
         xObstacle = Math.floor(Math.random()*(720*3/4 - 720/4) + 720/4); // On choisit une position x au hasard
     }
