@@ -8,7 +8,7 @@
         #btnrejouer {
             border: 5px solid #73746B;
             display: block;
-            margin : auto;
+            margin : auto; /*pour centrer le bouton*/
             background-color : #f4f4f4 ; 
             color: #73746B ;
             width: 400px;
@@ -18,25 +18,38 @@
             transition-duration: 0.2s;
             transition-timing-function: ease;
             transition-delay: 0; 
+            font-size : 25px ; /*taille texte à l'intérieur du bouton*/
+            border-radius : 10px ; /*arrondir les angles*/
+            cursor : pointer ; ;
+            text-transform: uppercase ; /*met le texte en majuscule*/
+            box-shadow : 0 9px #535252 ; /*effet de volume*/
         }
-        #btnrejouer:hover {
+        #btnrejouer:hover /*pour changer la couleur du bouton*/ {
             background-color : #73746B; 
-            color: #f4f4f4 ;}
+            color: #f4f4f4 ;
+            transform: translateY(3px);
+            box-shadow : 0 6px #535252 ;
+        }
+       #btnrejouer:active {
+            transform: translateY(7px); /*donne une impression de descendre le bouton*/
+            box-shadow : 0 2px #535252 ;
+       }  
         p {
-            line-height: 200px;
+            line-height: 150px;
             text-align: center;
             color : red ; 
-            
+            font-size : 25px ; 
         }
+        body {
+            background-color:black ; 
+        } 
     </style>
     <title>Projet Prog Web</title>
 </head>
 <body style="margin:0px;">
-    <p>  Vous avez perdu !!!
-    </p>
+    <audio id="my audio" src="music.mp3"></audio>
+    <p>  Too bad, you failed ! </p>
     <button id = "btnrejouer" >Rejouer</button>
-    <button id = "btnjouer">Jouer</button>
-    
     
 </body>
 </html>
