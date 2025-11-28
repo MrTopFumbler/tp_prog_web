@@ -9,6 +9,7 @@
             border: 5px solid #73746B;
             display: block;
             margin : auto; /*pour centrer le bouton*/
+            margin-top: 400px;
             background-color : #f4f4f4 ; 
             color: #73746B ;
             width: 400px;
@@ -38,18 +39,19 @@
             line-height: 150px;
             text-align: center;
             color : red ; 
-            font-size : 25px ; 
+            font-size : 80px ; 
         }
         body {
-            background-color:black ; 
+            background-image:url('fin_background.webp') ; 
+            background-size: 100%;
         } 
     </style>
     <title>Projet Prog Web</title>
 </head>
 <body style="margin:0px;">
     <audio id="my audio" src="music.mp3"></audio>
-    <p>  Too bad, you failed ! </p>
-    <button id = "btnrejouer" >Rejouer</button>
+    <p>  Too bad, you failed! </p>
+    <form action=""><button id="btnrejouer" type="submit" formaction="index.html">Rejouer</button></form>
     
 </body>
 </html>

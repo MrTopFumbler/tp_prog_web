@@ -15,11 +15,16 @@ let leftKey = false;
 let upKey = false;
 let downKey = false; // Si les boutons sont appuyés ou pas
 let score = 0;
+let isAlive = true;
+
+const playZoneUpper = 220;
+const playZoneLeft = 40;
+const playZoneRight = 720 - 40;
 
 
 // Vars d'équilibrage
 
-const nbObstacles = 6;
+const nbObstacles = 20;
 let vitesseJoueur = 2.5;
 
 // Classes
@@ -27,9 +32,9 @@ let vitesseJoueur = 2.5;
 class Joueur {
     constructor(speed) {
         this.x = canvas.width/2;
-        this.y = canvas.height/2;
+        this.y = 3*canvas.height/4;
         this.speed = speed;
-        this.radius = 20;
+        this.radius = 15;
     }
 
     move() {
@@ -46,17 +51,17 @@ class Joueur {
             this.y += this.speed;
         }
 
-        if(this.x > 720) { // Bloque le perso dans la zone de jeu
-            this.x = 720;
+        if(this.x > playZoneRight) { // Bloque le perso dans la zone de jeu
+            this.x = playZoneRight;
         }
-        if(this.x < 0) {
-            this.x = 0;
+        if(this.x < playZoneLeft) {
+            this.x = playZoneLeft;
         }
         if(this.y > 480) {
             this.y = 480;
         }
-        if(this.y < 220) {
-            this.y = 220;
+        if(this.y < playZoneUpper) {
+            this.y = playZoneUpper;
         }
     }
 }
@@ -74,18 +79,31 @@ class Obstacle {
 
     reset() // C'est pareil que le constructeur mais ça évite de détruire et recréer les obstacles
     {
-        this.x = Math.floor(Math.random()*720); // On fait apparâitre l'obstacle sur n'importe quel x entre 0 et 720
-        this.y = -Math.floor(Math.random()*(75-25) + 25); // On fait apparaître l'obstacle entre 25 et 75px au-dessus de l'écran
+        this.x = random(0,800); // On fait apparâitre l'obstacle sur n'importe quel x entre 0 et 720
+        this.y = -random(25,100); // On fait apparaître l'obstacle entre 25 et 100px au-dessus de l'écran
         this.dx = -0.7; // L'angle de mouvement l'obstacle
-        this.speed = Math.floor(Math.random()*(5-3) + 3); // Vitesse aléatoire entre 3 et 5
+        this.speed = random(3,5); // Vitesse aléatoire entre 3 et 5
         this.length = 25;
         this.width = -3;
+    }
+}
+
+class Coin {
+    constructor() {
+        this.reset()
+    }
+
+    reset() {
+        this.x = random(playZoneLeft, playZoneRight);
+        this.y = random(playZoneUpper, 480);
+        this.radius = 10;
     }
 }
 
 // Créations instances
 
 let joueur = new Joueur(vitesseJoueur);
+let coin = new Coin();
 
 const listeObstacles = []
 
@@ -95,6 +113,11 @@ for (let i = 0; i<nbObstacles; i++)
 }
 
 // Functions
+
+function random(min, max)
+{
+    return Math.floor(Math.random()*(max-min) + min);
+}
 
 function keyDown(btn) // TODO: REMPLACER PAR UN SWITCH
 {
@@ -152,28 +175,58 @@ function drawObstacles() // Dessine les obstacles de la liste
         ctx.beginPath();
         ctx.lineWidth = 2;
         ctx.strokeStyle = "blue";
-        ctx.moveTo(item.x, item.y); // Move the , pen to (30, 50)
-        ctx.lineTo(item.x + item.width, item.y + item.length); // Draw a line to (150, 100)
+        ctx.moveTo(item.x - 1/2*item.width, item.y - 1/2*item.length); // Move the , pen to (30, 50)
+        ctx.lineTo(item.x + 1/2*item.width, item.y + 1/2*item.length); // Draw a line to (150, 100)
         ctx.stroke(); // Render the path
         ctx.closePath();
     }
 }
 
-/*function handleCollisions() { // Ah fichtre, c'est reparti
-    for (item of listeObstacles) {
-        if
-    }
-}*/
+function drawCoin()
+{
+    ctx.beginPath();
+    ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = "yellow";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function scoreUp(){
+    score += 1;
+    scoreText.textContent = "Score : " + score;
+}
+
+function handleCollisions(item) { // Ah fichtre, c'est reparti
+        if ((item.x < joueur.x + joueur.radius) && (item.x > joueur.x - joueur.radius)) { // oulalalala c pas bo
+            if((item.y < joueur.y + joueur.radius) && (item.y > joueur.y - joueur.radius)) {
+                isAlive = false;
+            }
+        }
+}
+
+function handleCoinPickup(item) {
+        if ((item.x < joueur.x + joueur.radius) && (item.x > joueur.x - joueur.radius)) {
+            if((item.y < joueur.y + joueur.radius) && (item.y > joueur.y - joueur.radius)) {
+                coin.reset();
+                scoreUp();
+            }
+        }
+}
+
+const id = setInterval(draw, 10); // On dessine notre jeu à chaque frame
 
 function draw()
 {
+    if (isAlive) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
 
     joueur.move();
 
     // Les objets dessinés en 1er sont en dessous
+    drawCoin();
     drawPlayer(); // On dessine le joueur et les obstacles...
     drawObstacles();
+    handleCoinPickup(coin);
 
     for (item of listeObstacles){
         if(item.y>480){ // Quand l'obstacle sort de l'écran
@@ -181,11 +234,14 @@ function draw()
         }
         else {
             item.move();
+            handleCollisions(item);
         }
     } // On déplace tous les obstacles
 
-    
+    }
+    else{
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        clearInterval(id);
+        document.location.replace("./fin.html");
+    }
 }
-// TODO: Limiter le mouvement du joueur pour pouvoir voir venir les obstacles
-// TODO: Empêcher joueur de sortir de l'écran
-setInterval(draw, 10); // On dessine notre jeu à chaque frame
