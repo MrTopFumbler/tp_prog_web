@@ -1,6 +1,12 @@
-let scores = [];
+// scores est une liste de deux listes (scores puis pseudos)
 
 updateTable()
+
+function ordrescore(){
+    
+
+    updateTable();
+}
 
 function updateTable() {
         // Getting my element Table using it's ID
@@ -10,8 +16,8 @@ function updateTable() {
 
         scores.forEach(function (scorePseudo) {
 
-            pseudo = scorePseudo[0]
-            score = scorePseudo[1]
+            pseudo = scorePseudo.key
+            score = scorePseudo.value
 
 
             // Creating a <tr> element, just like the CM n°3
