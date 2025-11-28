@@ -6,12 +6,46 @@
     <script type="text/javascript" src="scriptaccueil.js" defer></script>
     <title>Accueil</title>
     <style>
+         #btn {
+            border: 5px solid #73746B;
+            display: block;
+            margin : auto; /*pour centrer le bouton*/
+            margin-top: 200px;
+            background-color : #f4f4f4 ; 
+            color: #73746B ;
+            width: 400px;
+            height: 100px;
+            line-height: 60px; 
+            transition-property: background-color, color;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+            transition-delay: 0; 
+            font-size : 25px ; /*taille texte à l'intérieur du bouton*/
+            border-radius : 10px ; /*arrondir les angles*/
+            cursor : pointer ; ;
+            text-transform: uppercase ; /*met le texte en majuscule*/
+            box-shadow : 0 9px #535252 ; /*effet de volume*/
+         }
+         #btn:hover /*pour changer la couleur du bouton*/ {
+            background-color : #73746B; 
+            color: #f4f4f4 ;
+            transform: translateY(3px);
+            box-shadow : 0 6px #535252 ;
+        }
+         #btn:active {
+            transform: translateY(7px); /*donne une impression de descendre le bouton*/
+            box-shadow : 0 2px #535252 ;
+         }
         #titre{
             text-align: center;
+            color : red;
+            font-size: 50px;
         }
         #pseudo{
             text-align: center;
             line-height: 100px;
+            margin-top: 100px;
+            font-size: 20px;
         }
         div{
             text-align: center;
@@ -21,9 +55,9 @@
     </style>
 </head>
 <body>
-    <div><p id="titre">[nom du jeu]</p>
-    <input type="text" id="pseudo">
-    <form action=""><button type="submit" formaction="jeu.html">Jouer</button></form>
+    <div><p id="titre">Mets ton pseudo</p>
+    <input type="text" id="pseudo" size=60>
+    <form action=""><button id="btn" type="submit" formaction="jeu.html">Jouer</button></form>
     </div>
 </body>
 </html>
