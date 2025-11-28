@@ -1,10 +1,28 @@
 // scores est une liste de deux listes (scores puis pseudos)
 
-updateTable()
+let scores=[[],[]];
 
-function ordrescore(){
-    
-
+function ajouterScore(score, pseudo){
+    if (scores[0] == []) {
+        scores[0].push(score);
+        scores[1].push(pseudo);
+    }
+    else{
+        trouve = false;
+        l=scores[0].length;
+        i=0;
+        while (trouve == false & i<l) {
+            if (scores[i]<score){
+                scores[0].splice(i+1, 0, score);
+                scores[1].splice(i+1, 0, pseudo);
+                trouve = true
+            }
+        } 
+        if (trouve == false){
+            scores[0].push(score);
+            scores[1].push(pseudo);
+        }
+    }
     updateTable();
 }
 
@@ -14,14 +32,14 @@ function updateTable() {
         //remove everything from the table
         tableEl.innerHTML = '';
 
-        scores.forEach(function (scorePseudo) {
+        scores[0].forEach(function (scorePseudo, index) {
 
-            pseudo = scorePseudo.key
-            score = scorePseudo.value
+            pseudo = scores[1][index];
+            score = scorePseudo;
 
 
             // Creating a <tr> element, just like the CM n°3
-            const tr = document.createElement('TR');
+            const tr = document.createElement('TR');pseudo
             // Creating a <td> element, just like the CM n°3
             const td1 = document.createElement('TD');
             // Creating a <td> element, just like the CM n°3
