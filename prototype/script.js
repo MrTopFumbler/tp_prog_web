@@ -17,6 +17,9 @@ let downKey = false; // Si les boutons sont appuyés ou pas
 let score = 0;
 let isAlive = true;
 
+const duree = 30 * 60; // 30 secondes pour chaque niveau
+let timer = duree;
+
 const playZoneUpper = 220;
 const playZoneLeft = 40;
 const playZoneRight = 720 - 40;
@@ -24,8 +27,12 @@ const playZoneRight = 720 - 40;
 
 // Vars d'équilibrage
 
-const nbObstacles = 20;
-let vitesseJoueur = 2.5;
+const nbObstacles = 22;
+let vitesseInit = 3.0;
+let obstacleMinSpeed = 3.0;
+let obstacleMaxSpeed = 4.0;
+const obstacleSpeedIncrease = 0.3;
+const maxLevelObstacleSpeed = 7.0;
 
 // Classes
 
@@ -35,6 +42,7 @@ class Joueur {
         this.y = 3*canvas.height/4;
         this.speed = speed;
         this.radius = 15;
+        this.parapluieHP = 0;
     }
 
     move() {
@@ -82,7 +90,7 @@ class Obstacle {
         this.x = random(0,800); // On fait apparâitre l'obstacle sur n'importe quel x entre 0 et 720
         this.y = -random(25,100); // On fait apparaître l'obstacle entre 25 et 100px au-dessus de l'écran
         this.dx = -0.7; // L'angle de mouvement l'obstacle
-        this.speed = random(3,5); // Vitesse aléatoire entre 3 et 5
+        this.speed = random(obstacleMinSpeed,obstacleMaxSpeed); // Vitesse aléatoire en fonc. du niveau
         this.length = 25;
         this.width = -3;
     }
@@ -90,19 +98,24 @@ class Obstacle {
 
 class Coin {
     constructor() {
+        this.radius = 10;
         this.reset()
     }
 
     reset() {
         this.x = random(playZoneLeft, playZoneRight);
         this.y = random(playZoneUpper, 480);
-        this.radius = 10;
+    }
+
+    hide() { // Plutôt que de tout détruire et réinit. hehe
+        this.x = 5000;
+        this.y = 5000;
     }
 }
 
 // Créations instances
 
-let joueur = new Joueur(vitesseJoueur);
+let joueur = new Joueur(vitesseInit);
 let coin = new Coin();
 
 const listeObstacles = []
@@ -193,22 +206,40 @@ function drawCoin()
 
 function scoreUp(){
     score += 1;
+    /*if (joueur.speed >= 1.5){
+        joueur.speed -= 0.5;
+    }*/
+
+    if (obstacleMaxSpeed < maxLevelObstacleSpeed) {
+        obstacleMinSpeed += obstacleSpeedIncrease;
+        obstacleMaxSpeed += obstacleSpeedIncrease;
+    }
+
     scoreText.textContent = "Score : " + score;
 }
 
 function handleCollisions(item) { // Ah fichtre, c'est reparti
         if ((item.x < joueur.x + joueur.radius) && (item.x > joueur.x - joueur.radius)) { // oulalalala c pas bo
             if((item.y < joueur.y + joueur.radius) && (item.y > joueur.y - joueur.radius)) {
-                isAlive = false;
+                if(joueur.parapluieHP > 0) {
+                    joueur.parapluieHP -= 1;
+                    item.reset();
+                    if(joueur.parapluieHP == 0){
+                        coin.reset();
+                    }
+                }
+                else {
+                    isAlive = false;
+                }
             }
         }
-}
+} // Verdict : c'est dégueu (mais ça marche)
 
 function handleCoinPickup(item) {
         if ((item.x < joueur.x + joueur.radius) && (item.x > joueur.x - joueur.radius)) {
             if((item.y < joueur.y + joueur.radius) && (item.y > joueur.y - joueur.radius)) {
-                coin.reset();
-                scoreUp();
+                coin.hide();
+                joueur.parapluieHP = 2;
             }
         }
 }
@@ -237,6 +268,12 @@ function draw()
             handleCollisions(item);
         }
     } // On déplace tous les obstacles
+
+    timer -= 1;
+    if (timer<=0){
+        timer = duree;
+        scoreUp();
+    }
 
     }
     else{
