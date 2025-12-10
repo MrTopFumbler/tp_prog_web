@@ -1,0 +1,20 @@
+[
+    {
+        "id" : 1, 
+        "pseudo" : "thibaut",
+        "scores" : "10", 
+        "domaine" : "HTML, CSS, JavaScript"
+    },
+    {
+        "id" : 2, 
+        "pseudo" : "robin",
+        "scores" : "10", 
+        "domaine" : "HTML, CSS, JavaScript"
+    },
+    {
+        "id" : 3, 
+        "pseudo" : "tiphaine",
+        "scores" : "10", 
+        "domaine" : "HTML, CSS, JavaScript"
+    }
+]
