@@ -1,40 +1,39 @@
-// Elements
+// EQUILIBRAGE
+
+const nbObstacles = 22; // Nombre d'obstacles affichés en MÊME TEMPS
+const vitesseInit = 3.0; // Vitesse de base du joueur
+let obstacleMinSpeed = 3.0; // Vitesse min de base des obstacles
+let obstacleMaxSpeed = 4.0; // Vitesse max de base des obstacles
+const obstacleSpeedIncrease = 0.3; // Augmentation de vitesse des obstacles par niveau
+const maxLevelObstacleSpeed = 7.0; // Vitesse min au niveau max des obstacles
+const duree = 20 * 100; // nb secondes * 100 frames pour chaque niveau
+
+// Elements //
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d"); // C'est l'objet qu'on utilise pour dessiner le jeu
 const scoreText = document.querySelector("#score");
 
-// Listeners
+// Listeners //
 
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
 
-// Vars de bases
+// Vars de bases //
 
 let rightKey = false;
 let leftKey = false;
 let upKey = false;
-let downKey = false; // Si les boutons sont appuyés ou pas
+let downKey = false; // Si les boutons sont appuyés ou pas (flemme de faire des masques et tt)
 let score = 0;
 let isAlive = true;
 
-const duree = 30 * 60; // 30 secondes pour chaque niveau
 let timer = duree;
 
 const playZoneUpper = 220;
 const playZoneLeft = 40;
 const playZoneRight = 720 - 40;
 
-
-// Vars d'équilibrage
-
-const nbObstacles = 22;
-let vitesseInit = 3.0;
-let obstacleMinSpeed = 3.0;
-let obstacleMaxSpeed = 4.0;
-const obstacleSpeedIncrease = 0.3;
-const maxLevelObstacleSpeed = 7.0;
-
-// Classes
+// Classes //
 
 class Joueur {
     constructor(speed) {
@@ -72,6 +71,26 @@ class Joueur {
             this.y = playZoneUpper;
         }
     }
+	
+	drawParapluie() {
+		if (this.parapluieHP > 0) {
+			ctx.beginPath();
+			ctx.arc(this.x, this.y-15, 5, 0, Math.PI * 2, false);
+			ctx.fillStyle = "red";
+			ctx.fill();
+			ctx.closePath();
+		}
+	}
+	
+	draw() {
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+		ctx.fillStyle = "green";
+		ctx.fill();
+		ctx.closePath();
+		// En gros ça marche comme sur Scratch avec le pinceau levé et tt #rpz
+		this.drawParapluie();
+	}
 }
 
 class Obstacle {
@@ -94,6 +113,16 @@ class Obstacle {
         this.length = 25;
         this.width = -3;
     }
+	
+	draw() {
+		ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#77a7b8";
+        ctx.moveTo(this.x - 1/2*this.width, this.y - 1/2*this.length);
+        ctx.lineTo(this.x + 1/2*this.width, this.y + 1/2*this.length);
+        ctx.stroke();
+        ctx.closePath();
+	}
 }
 
 class Coin {
@@ -111,101 +140,79 @@ class Coin {
         this.x = 5000;
         this.y = 5000;
     }
+	
+	draw() {
+		ctx.beginPath();
+		ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2, false);
+		ctx.fillStyle = "yellow";
+		ctx.fill();
+		ctx.closePath();
+	}
 }
 
-// Créations instances
+// Créations instances //
 
 let joueur = new Joueur(vitesseInit);
 let coin = new Coin();
-
 const listeObstacles = []
-
 for (let i = 0; i<nbObstacles; i++)
 {
     listeObstacles.push(new Obstacle());
 }
-
-// Functions
+// Fonctions utilitaires //
 
 function random(min, max)
 {
     return Math.floor(Math.random()*(max-min) + min);
 }
-
-function keyDown(btn) // TODO: REMPLACER PAR UN SWITCH
+function keyDown(btn) // TODO: Améliorer + Ajouter des touches
 {
-    if(btn.key === "ArrowRight")
+    if(btn.key === "ArrowRight" || btn.key === "d")
     {
         rightKey = true;
     }
-    else if(btn.key === "ArrowLeft")
+    else if(btn.key === "ArrowLeft" || btn.key === "q")
     {
         leftKey = true;
     }
-    else if(btn.key === "ArrowUp")
+    else if(btn.key === "ArrowUp" || btn.key === "z")
     {
         upKey = true;
     }
-    else if(btn.key === "ArrowDown")
+    else if(btn.key === "ArrowDown" || btn.key === "s")
     {
         downKey = true;
     }
 }
-
 function keyUp(btn)
 {
-    if(btn.key === "ArrowRight")
+    if(btn.key === "ArrowRight" || btn.key === "d")
     {
         rightKey = false;
     }
-    else if(btn.key === "ArrowLeft")
+    else if(btn.key === "ArrowLeft" || btn.key === "q")
     {
         leftKey = false;
     }
-    else if(btn.key === "ArrowUp")
+    else if(btn.key === "ArrowUp" || btn.key === "z")
     {
         upKey = false;
     }
-    else if(btn.key === "ArrowDown")
+    else if(btn.key === "ArrowDown" || btn.key === "s")
     {
         downKey = false;
     }
 }
 
-function drawPlayer() // Dessine la balle (joueur)
-{
-    ctx.beginPath();
-    ctx.arc(joueur.x, joueur.y, joueur.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = "green";
-    ctx.fill();
-    ctx.closePath();
-    // En gros ça marche comme sur Scratch avec le pinceau levé et tt #rpz
+function drawText(){
+    ctx.font = "48px arial";
+    ctx.fillStyle="orange";
+    ctx.fillText(textToShow, canvas.width/2 - 100, 50);
 }
 
-function drawObstacles() // Dessine les obstacles de la liste
-{
-    for (item of listeObstacles) {
-        ctx.beginPath();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = "blue";
-        ctx.moveTo(item.x - 1/2*item.width, item.y - 1/2*item.length); // Move the , pen to (30, 50)
-        ctx.lineTo(item.x + 1/2*item.width, item.y + 1/2*item.length); // Draw a line to (150, 100)
-        ctx.stroke(); // Render the path
-        ctx.closePath();
-    }
-}
+// Évènements spontanés //
 
-function drawCoin()
-{
-    ctx.beginPath();
-    ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function scoreUp(){
-    score += 1;
+function levelUp(){
     /*if (joueur.speed >= 1.5){
         joueur.speed -= 0.5;
     }*/
@@ -214,9 +221,21 @@ function scoreUp(){
         obstacleMinSpeed += obstacleSpeedIncrease;
         obstacleMaxSpeed += obstacleSpeedIncrease;
     }
-
-    scoreText.textContent = "Score : " + score;
+    showText("Level Up!", 3);
 }
+let textTimer = 0.0;
+let textToShow = "";
+function showText(text, durationInSeconds){
+    textTimer = durationInSeconds * 100;
+    textToShow = text;
+}
+
+function scoreUp(){
+    score += 0.1;
+    scoreText.textContent = "Score : " + Math.floor(score);
+}
+
+// Gestion du jeu //
 
 function handleCollisions(item) { // Ah fichtre, c'est reparti
         if ((item.x < joueur.x + joueur.radius) && (item.x > joueur.x - joueur.radius)) { // oulalalala c pas bo
@@ -234,7 +253,6 @@ function handleCollisions(item) { // Ah fichtre, c'est reparti
             }
         }
 } // Verdict : c'est dégueu (mais ça marche)
-
 function handleCoinPickup(item) {
         if ((item.x < joueur.x + joueur.radius) && (item.x > joueur.x - joueur.radius)) {
             if((item.y < joueur.y + joueur.radius) && (item.y > joueur.y - joueur.radius)) {
@@ -244,21 +262,8 @@ function handleCoinPickup(item) {
         }
 }
 
-const id = setInterval(draw, 10); // On dessine notre jeu à chaque frame
-
-function draw()
-{
-    if (isAlive) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
-
-    joueur.move();
-
-    // Les objets dessinés en 1er sont en dessous
-    drawCoin();
-    drawPlayer(); // On dessine le joueur et les obstacles...
-    drawObstacles();
+function manageGame(){
     handleCoinPickup(coin);
-
     for (item of listeObstacles){
         if(item.y>480){ // Quand l'obstacle sort de l'écran
             item.reset(); // On pourrait recréer l'obstacle mais flemme...
@@ -268,11 +273,36 @@ function draw()
             handleCollisions(item);
         }
     } // On déplace tous les obstacles
+}
+function draw(){
+    coin.draw();
+    joueur.draw(); // On dessine le joueur et les obstacles...
+	for (item of listeObstacles) {
+		item.draw();
+	}
+}
+
+const id = setInterval(main, 10); // On dessine notre jeu à chaque frame
+function main()
+{
+    if (isAlive) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
+    joueur.move();
+
+    // On dessine TOUT
+    draw();
+    // Gère les obstacles, collisions...
+    manageGame();
+    scoreUp();
 
     timer -= 1;
+    textTimer -=1;
+    if (textTimer>0){
+        drawText();
+    }
     if (timer<=0){
         timer = duree;
-        scoreUp();
+        levelUp();
     }
 
     }
