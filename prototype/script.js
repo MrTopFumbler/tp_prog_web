@@ -54,7 +54,7 @@ class Joueur {
         this.x = canvas.width/2;
         this.y = 3*canvas.height/4;
         this.speed = speed;
-        this.radius = 15;
+        this.radius = 18;
         this.parapluieHP = 0;
     }
 
@@ -90,27 +90,27 @@ class Joueur {
         if (this.parapluieHP == 0) {
             ctx.drawImage(joueurSprite0, this.x - 40, this.y - 60, 80, 100);
 
-            ctx.beginPath();
+            /*ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
             ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
             ctx.fill();
-            ctx.closePath();
+            ctx.closePath();*/
         }
         else if (this.parapluieHP == 1) {
             ctx.drawImage(joueurSprite1, this.x -40, this.y-60, 80, 100);
-            ctx.beginPath();
+            /*ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
             ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
             ctx.fill();
-            ctx.closePath();
+            ctx.closePath();*/
         }
         else {
             ctx.drawImage(joueurSprite2, this.x-40, this.y-60, 80, 100);
-            ctx.beginPath();
+            /*ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
             ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
             ctx.fill();
-            ctx.closePath();
+            ctx.closePath();*/
         }
 	}
 }
@@ -139,7 +139,7 @@ class Obstacle {
 	draw() {
 		ctx.beginPath();
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "#77a7b8";
+        ctx.strokeStyle = "#3dbef5";
         ctx.moveTo(this.x - 1/2*this.width, this.y - 1/2*this.length);
         ctx.lineTo(this.x + 1/2*this.width, this.y + 1/2*this.length);
         ctx.stroke();
