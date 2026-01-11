@@ -45,6 +45,9 @@ joueurSprite1.src = "./sprites/PersonnagePara1.png"
 const joueurSprite2 = new Image();
 joueurSprite2.src = "./sprites/PersonnagePara2.png"
 
+const parapluieSprite = new Image();
+parapluieSprite.src = "./sprites/parapluie.png"
+
 const courses = new Image();
 
 // Classes //
@@ -149,7 +152,7 @@ class Obstacle {
 
 class Coin {
     constructor() {
-        this.radius = 10;
+        this.radius = 20;
         this.reset()
     }
 
@@ -163,12 +166,14 @@ class Coin {
         this.y = 5000;
     }
 	
-	draw() {
-		ctx.beginPath();
+    draw() {
+        ctx.drawImage(parapluieSprite, this.x - 32, this.y - 32, 64, 64);
+
+		/*ctx.beginPath();
 		ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2, false);
-		ctx.fillStyle = "yellow";
+		ctx.fillStyle = "rgba(255,255,0,0.15)";
 		ctx.fill();
-		ctx.closePath();
+		ctx.closePath();*/
 	}
 }
 
