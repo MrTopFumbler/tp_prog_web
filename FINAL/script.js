@@ -259,7 +259,7 @@ function levelUp(){
         obstacleMinSpeed += obstacleSpeedIncrease;
         obstacleMaxSpeed += obstacleSpeedIncrease;
     }
-    showText("Level Up!", 3);
+    showText("Speed Up!", 3);
 }
 let textTimer = 0.0;
 let textToShow = "";
