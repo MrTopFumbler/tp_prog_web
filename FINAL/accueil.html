@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="scriptaccueil.js" defer></script>
+    <title>Accueil</title>
+    <style>
+         #btn {
+            border: 5px solid #73746B;
+            display: block;
+            margin : auto; /*pour centrer le bouton*/
+            margin-top: 90px; /*gère la hauteur du bouton*/
+            background-color : #f4f4f4 ; 
+            color: #73746B ;
+            width: 400px;
+            height: 100px;
+            line-height: 60px; 
+            transition-property: background-color, color;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+            transition-delay: 0; 
+            font-size : 25px ; /*taille texte à l'intérieur du bouton*/
+            border-radius : 10px ; /*arrondir les angles*/
+            cursor : pointer ; ;
+            text-transform: uppercase ; /*met le texte en majuscule*/
+            box-shadow : 0 9px #535252 ; /*effet de volume*/
+         }
+         #btn:hover /*pour changer la couleur du bouton*/ {
+            background-color : #73746B; 
+            color: #f4f4f4 ;
+            transform: translateY(3px);
+            box-shadow : 0 6px #535252 ;
+        }
+         #btn:active {
+            transform: translateY(7px); /*donne une impression de descendre le bouton*/
+            box-shadow : 0 2px #535252 ;
+         }
+        #titre{
+            text-align: center;
+            color : red;
+            font-size: 50px;
+        }
+        #pseudo{
+            text-align: center;
+            line-height: 100px; /*gère la hauteur de l'encadré du pseudo*/
+            margin-top: 80px;
+            font-size: 20px;
+        }
+        div{
+            text-align: center;
+            line-height: 100px;
+        }
+        body {
+            background-image: url('trump.jpg'); 
+            background-size: 100%;
+        } 
+    </style>
+</head>
+<body>
+    <div><p id="titre">Choisis ton pseudo</p>
+    <input type="text" id="pseudo" size=60 placeholder="Entre ton pseudo">
+    <button id="btn">Jouer</button>
+    </div>
+</body>
+</html>
