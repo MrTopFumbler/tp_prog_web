@@ -48,7 +48,7 @@ function sauvegarderScore(pseudo, score) {
 }
 
 const pseudo = sessionStorage.getItem("pseudos");
-const score = sessionStorage.getItem("scores");
+const score = Math.floor(sessionStorage.getItem("scores"));
 
 sauvegarderScore(pseudo, score);
 const joueurs = JSON.parse(sessionStorage.getItem("joueurs")) || [];
