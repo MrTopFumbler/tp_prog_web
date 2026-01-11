@@ -36,8 +36,8 @@ const playZoneRight = 800;
 const bg = new Image();
 bg.src = "./sprites/map.png"
 
-const joueur = new Image();
-joueur.src = "./sprites/personnage.png"
+const joueurSprite = new Image();
+joueurSprite.src = "./sprites/personnage.png"
 
 const courses = new Image();
 
@@ -80,24 +80,28 @@ class Joueur {
         }
     }
 	
-	drawParapluie() {
-		if (this.parapluieHP > 0) {
-			ctx.beginPath();
-			ctx.arc(this.x, this.y-15, 5, 0, Math.PI * 2, false);
-			ctx.fillStyle = "red";
-			ctx.fill();
-			ctx.closePath();
-		}
-	}
-	
-	draw() {
-		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-		ctx.fillStyle = "green";
-		ctx.fill();
-		ctx.closePath();
-		// En gros ça marche comme sur Scratch avec le pinceau levé et tt #rpz
-		this.drawParapluie();
+    draw() {
+        if (this.parapluieHP == 0) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (this.parapluieHP == 1) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = "blue";
+            ctx.fill();
+            ctx.closePath();
+        }
+        else {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = "green";
+            ctx.fill();
+            ctx.closePath();
+        }
 	}
 }
 
