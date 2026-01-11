@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Prog Web</title>
+    <script src="./script.js" defer></script>
+    <!--<script>
+        /*récupérer les pseudos*/
+        const pseudosJSON = localStorage.getItem("pseudos");
+            if (pseudosJSON) {
+            const pseudos = JSON.parse(pseudosJSON);
+            console.log(pseudos); }
+
+            document.getElementById("affichage").textContent =
+            `Joueur : ${pseudosJSON}`; 
+
+        /*pour le stockage des scores */
+        const scor = scoreUp()
+        localStorage.setItem("scores", JSON.stringify(scores)); /*stockage en JSON*/
+        window.location.href = "classement.html"; /*navigation vers le fichier classement*/
+
+        /*pour le stockage des pseudos */
+        const pseudo = pseudosJSON
+        localStorage.setItem("pseudo", JSON.stringify(pseudo)); /*stockage en JSON*/
+        window.location.href = "classsement.html";
+    </script>-->
+</head>
+<body>
+    <header><h1>Le super jeu vraiment bien la team</h1></header>
+
+    <main>  
+        <p id="affichage"></p>
+        <script src="script.js" defer></script>
+        <p id="score">Score : 0</p>
+        <canvas id="canvas" width="720" height="480"></canvas>
+        
+    </main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./progweb.js" defer></script>
+    <style>
+        #btnrejouer {
+            border: 5px solid #73746B;
+            display: block;
+            margin : auto; /*pour centrer le bouton*/
+            margin-top: 400px;
+            background-color : #f4f4f4 ; 
+            color: #73746B ;
+            width: 400px;
+            height: 100px;
+            line-height: 60px; 
+            transition-property: background-color, color;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+            transition-delay: 0; 
+            font-size : 25px ; /*taille texte à l'intérieur du bouton*/
+            border-radius : 10px ; /*arrondir les angles*/
+            cursor : pointer ; ;
+            text-transform: uppercase ; /*met le texte en majuscule*/
+            box-shadow : 0 9px #535252 ; /*effet de volume*/
+        }
+        #btnrejouer:hover /*pour changer la couleur du bouton*/ {
+            background-color : #73746B; 
+            color: #f4f4f4 ;
+            transform: translateY(3px);
+            box-shadow : 0 6px #535252 ;
+        }
+       #btnrejouer:active {
+            transform: translateY(7px); /*donne une impression de descendre le bouton*/
+            box-shadow : 0 2px #535252 ;
+       }  
+        p {
+            line-height: 150px;
+            text-align: center;
+            color : red ; 
+            font-size : 80px ; 
+        }
+        body {
+            background-image:url('2195035.webp') ; 
+            background-size: 100%;
+        } 
+    </style>
+    <title>Projet Prog Web</title>
+</head>
+<body style="margin:0px;">
+    <audio id="my audio" src="music.mp3"></audio>
+    <p>  Too bad, you failed! </p>
+    <form action=""><button id="btnrejouer" type="submit" formaction="robin.html">Reouer</button></form>
+    
+</body>
+</html>
