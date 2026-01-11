@@ -25,7 +25,7 @@
             font-size: xx-large;
         }
 
-        button {
+        #btnrej {
             border: 5px solid #73746B;
             display: block;
             margin: auto; /*pour centrer le bouton*/
@@ -46,14 +46,48 @@
             box-shadow: 0 9px #535252; /*effet de volume*/
         }
 
-            button:hover /*pour changer la couleur du bouton*/ {
+            #btnrej:hover /*pour changer la couleur du bouton*/ {
                 background-color: #73746B;
                 color: #f4f4f4;
                 transform: translateY(3px);
                 box-shadow: 0 6px #535252;
             }
 
-            button:active {
+            #btnrej:active {
+                transform: translateY(7px); /*donne une impression de descendre le bouton*/
+                box-shadow: 0 2px #535252;
+            }
+
+        #btnPseu {
+            border: 5px solid #73746B;
+            display: block;
+            margin: auto; /*pour centrer le bouton*/
+            margin-top: 50px;
+            background-color: #f4f4f4;
+            color: #73746B;
+            width: 300px;
+            height: 80px;
+            line-height: 60px;
+            transition-property: background-color, color;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+            transition-delay: 0;
+            font-size: 20px; /*taille texte à l'intérieur du bouton*/
+            border-radius: 10px; /*arrondir les angles*/
+            cursor: pointer;
+            ;
+            text-transform: uppercase; /*met le texte en majuscule*/
+            box-shadow: 0 9px #535252; /*effet de volume*/
+        }
+
+            #btnPseu:hover /*pour changer la couleur du bouton*/ {
+                background-color: #73746B;
+                color: #f4f4f4;
+                transform: translateY(3px);
+                box-shadow: 0 6px #535252;
+            }
+
+            #btnPseu:active {
                 transform: translateY(7px); /*donne une impression de descendre le bouton*/
                 box-shadow: 0 2px #535252;
             }
@@ -75,7 +109,7 @@
         </table>
     </center>
     <form action=""><button id="btnrej" type="submit" formaction="jeu.html">Rejouer</button></form>
-    <form action=""><button id="btnPseu" type="submit" formaction="index.html">Changer Pseudo</button></form>
+    <form action=""><button id="btnPseu" type="submit" formaction="index.html">Accueil</button></form>
     <!--<button id="reset">Réinitialiser le tableau</button>-->
 </body>
 </html>

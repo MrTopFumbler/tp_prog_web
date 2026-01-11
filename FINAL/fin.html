@@ -34,7 +34,7 @@
             transform: translateY(7px); /*donne une impression de descendre le bouton*/
             box-shadow : 0 2px #535252 ;
        }  
-       #btnscore {
+       #btnscore, #btnPseu {
             border: 5px solid #73746B;
             display: block;
             margin : auto; /*pour centrer le bouton*/
@@ -54,13 +54,13 @@
             text-transform: uppercase ; /*met le texte en majuscule*/
             box-shadow : 0 9px #535252 ; /*effet de volume*/
         }
-        #btnscore:hover /*pour changer la couleur du bouton*/ {
+        #btnscore:hover, #btnPseu:hover /*pour changer la couleur du bouton*/ {
             background-color : #73746B; 
             color: #f4f4f4 ;
             transform: translateY(3px);
             box-shadow : 0 6px #535252 ;
         }
-       #btnscore:active {
+       #btnscore:active, #btnPseu:active {
             transform: translateY(7px); /*donne une impression de descendre le bouton*/
             box-shadow : 0 2px #535252 ;
        }
@@ -83,6 +83,7 @@
     <p>  Too bad, you failed! </p>
     <form action=""><button id="btnrejouer" type="submit" formaction="jeu.html">Rejouer</button></form>
     <form action=""><button id="btnscore" type="submit" formaction="classement.html">Voir scores</button></form>
-    
+    <form action=""><button id="btnPseu" type="submit" formaction="index.html">Accueil</button></form>
+
 </body>
 </html>
