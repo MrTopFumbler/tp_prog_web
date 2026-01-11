@@ -336,14 +336,15 @@ function pauseGame() {
     }
 }
 
+ctx.webkitImageSmoothingEnabled = false;
+ctx.mozImageSmoothingEnabled = false;
+ctx.imageSmoothingEnabled = false;
+
 function main()
 {
     if (isAlive) {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
         ctx.drawImage(bg, 0, 0, 800, 600);
-		ctx.webkitImageSmoothingEnabled = false;
-    	ctx.mozImageSmoothingEnabled = false;
-    	ctx.imageSmoothingEnabled = false;
         joueur.move();
 
         // On dessine TOUT
