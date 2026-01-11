@@ -12,8 +12,8 @@ btn.addEventListener("click", () => {
   }
   else {
     sessionStorage.setItem("pseudo", pseudo);
-    window.location.href = "index.html";
-    document.location.replace("index.html");
+    window.location.href = "jeu.html";
+    document.location.replace("jeu.html");
   }
   
 });
