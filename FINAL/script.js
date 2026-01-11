@@ -1,12 +1,12 @@
 // EQUILIBRAGE
 
-const nbObstacles = 26; // Nombre d'obstacles affichés en MÊME TEMPS
+const nbObstacles = 32; // Nombre d'obstacles affichés en MÊME TEMPS
 const vitesseInit = 3.0; // Vitesse de base du joueur
 let obstacleMinSpeed = 3.0; // Vitesse min de base des obstacles
 let obstacleMaxSpeed = 4.0; // Vitesse max de base des obstacles
 const obstacleSpeedIncrease = 0.4; // Augmentation de vitesse des obstacles par niveau
-const maxLevelObstacleSpeed = 9.0; // Vitesse min au niveau max des obstacles
-const duree = 20 * 100; // nb secondes * 100 frames pour chaque niveau
+const maxLevelObstacleSpeed = 10.0; // Vitesse min au niveau max des obstacles
+const duree = 12 * 100; // nb secondes * 100 frames pour chaque niveau
 
 // Elements //
 const canvas = document.querySelector("#canvas");
@@ -68,7 +68,7 @@ class Joueur {
         this.x = canvas.width/2;
         this.y = 3*canvas.height/4;
         this.speed = speed;
-        this.radius = 18;
+        this.radius = 18.5;
         this.parapluieHP = 0;
     }
 
@@ -104,27 +104,27 @@ class Joueur {
         if (this.parapluieHP == 0) {
             ctx.drawImage(joueurSprite0, this.x - 40, this.y - 60, 80, 100);
 
-            /*ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
-            ctx.fill();
-            ctx.closePath();*/
+            //ctx.beginPath();
+            //ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            //ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
+            //ctx.fill();
+            //ctx.closePath();
         }
         else if (this.parapluieHP == 1) {
             ctx.drawImage(joueurSprite1, this.x -40, this.y-60, 80, 100);
-            /*ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
-            ctx.fill();
-            ctx.closePath();*/
+            //ctx.beginPath();
+            //ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            //ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
+            //ctx.fill();
+            //ctx.closePath();
         }
         else {
             ctx.drawImage(joueurSprite2, this.x-40, this.y-60, 80, 100);
-            /*ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
-            ctx.fill();
-            ctx.closePath();*/
+            //ctx.beginPath();
+            //ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            //ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
+            //ctx.fill();
+            //ctx.closePath();
         }
 	}
 }
@@ -168,8 +168,8 @@ class Coin {
     }
 
     reset() {
-        this.x = random(playZoneLeft, playZoneRight);
-        this.y = random(playZoneUpper, canvas.height);
+        this.x = random(playZoneLeft + 20, playZoneRight -20);
+        this.y = random(playZoneUpper + 20, canvas.height - 20);
     }
 
     hide() { // Plutôt que de tout détruire et réinit. hehe
@@ -339,6 +339,7 @@ function main()
         scoreUp();
 
         timer -= 1;
+        console.debug(timer);
         textTimer -=1;
         if (textTimer>0){
             drawText();

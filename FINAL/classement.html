@@ -2,44 +2,77 @@
 <head>
     <title>Classement</title>
     <style>
-      table,
-      th,
-      td {
-        padding: 10px;
-        border: 1px solid antiquewhite ;
-        border-collapse: collapse;
-        text-align :center;
-        color : antiquewhite ; 
-        background-color: "#87A1FF" ;
-      }
+        table,
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid antiquewhite;
+            border-collapse: collapse;
+            text-align: center;
+            color: antiquewhite;
+            background-color: "#87A1FF";
+        }
+
         body {
             background-image: url('pluie3.jpeg');
             background-size: 100%;
             font-family: Arial, Helvetica, sans-serif;
-        } 
-      header{
-        color : antiquewhite  ;
-        text-align : center ;
-        font-size:xx-large;
+        }
 
-      };
+        header {
+            color: antiquewhite;
+            text-align: center;
+            font-size: xx-large;
+        }
+
+        button {
+            border: 5px solid #73746B;
+            display: block;
+            margin: auto; /*pour centrer le bouton*/
+            margin-top: 90px; /*gère la hauteur du bouton*/
+            background-color: #f4f4f4;
+            color: #73746B;
+            width: 400px;
+            height: 100px;
+            line-height: 60px;
+            transition-property: background-color, color;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+            transition-delay: 0;
+            font-size: 25px; /*taille texte à l'intérieur du bouton*/
+            border-radius: 10px; /*arrondir les angles*/
+            cursor: pointer;
+            text-transform: uppercase; /*met le texte en majuscule*/
+            box-shadow: 0 9px #535252; /*effet de volume*/
+        }
+
+            button:hover /*pour changer la couleur du bouton*/ {
+                background-color: #73746B;
+                color: #f4f4f4;
+                transform: translateY(3px);
+                box-shadow: 0 6px #535252;
+            }
+
+            button:active {
+                transform: translateY(7px); /*donne une impression de descendre le bouton*/
+                box-shadow: 0 2px #535252;
+            }
     </style>
-    <script src="classtest.js" defer></script> 
+    <script src="classtest.js" defer></script>
 </head>
 <body>
     <center>
-    <header> Tableau des scores </header>
-    <table id="tableScore" width="80%" border="1">
-        <thead>
-            <tr>
-            <th colspan="1" bgcolor="#87A1FF">Pseudo</th>
-            <th bgcolor="#87A1FF"> Score </th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
+        <header> Tableau des scores </header>
+        <table id="tableScore" width="80%" border="1">
+            <thead>
+                <tr>
+                    <th colspan="1" bgcolor="#87A1FF">Pseudo</th>
+                    <th bgcolor="#87A1FF"> Score </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </center>
     <form action=""><button id="btnrej" type="submit" formaction="jeu.html">Rejouer</button></form>
     <form action=""><button id="btnPseu" type="submit" formaction="index.html">Changer Pseudo</button></form>
