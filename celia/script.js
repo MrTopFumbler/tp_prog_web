@@ -325,7 +325,7 @@ function main()
 
     }
     else{
-        /*ce que j'ai rajouté*/
+
         const scores = scoreUp() ;
         localStorage.setItem("scores", scores); 
         window.location.href = "classement.html";
@@ -333,7 +333,7 @@ function main()
         const pseudos = pseudo ; 
         localStorage.setItem("pseudos", pseudos);
         window.location.href = "classement.html";
-        /*fin*/
+       
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         clearInterval(id);
         document.location.replace("./fin.html");

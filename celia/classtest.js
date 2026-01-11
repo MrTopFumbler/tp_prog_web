@@ -60,26 +60,3 @@ joueurs.forEach(joueur => {
 const btnrej = document.getElementById ("btnrej") ;
 const changPseu = document.getElementById ("btnPseu") ;
 
-/*function resetScores() {
-  scores = [];
-  localStorage.removeItem("joueurs");
-  updateTable();
-}
-
-document.getElementById("reset").addEventListener("click", resetScores);
-
-
-/*const pseudo = localStorage.getItem("pseudos");
-const score = localStorage.getItem("scores");
-
-function sauvegarderScore(pseudo, score) {
-  let joueurs = JSON.parse(localStorage.getItem("joueurs")) || [];
-
-  joueurs.push({
-    pseudo: pseudo,
-    score: Number(score)
-  });
-
-  localStorage.setItem("joueurs", JSON.stringify(joueurs));
-}
-sauvegarderScore(pseudo, score);*/
