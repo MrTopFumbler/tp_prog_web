@@ -36,6 +36,11 @@ const playZoneRight = 800;
 const bg = new Image();
 bg.src = "./sprites/map.png"
 
+const joueur = new Image();
+joueur.src = "./sprites/personnage.png"
+
+const courses = new Image();
+
 // Classes //
 
 class Joueur {
@@ -292,6 +297,9 @@ function main()
     if (isAlive) {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
         ctx.drawImage(bg, 0, 0, 800, 600);
+		ctx.webkitImageSmoothingEnabled = false;
+    	ctx.mozImageSmoothingEnabled = false;
+    	ctx.imageSmoothingEnabled = false;
         joueur.move();
 
         // On dessine TOUT
