@@ -326,6 +326,9 @@ function pauseGame() {
     if (gamePaused == false) {
         clearInterval(id);
         gamePaused = true;
+        ctx.font = "48px arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("PAUSE", canvas.width / 2 - 80, canvas.height/2);
     }
     else {
         id = setInterval(main, 10);
