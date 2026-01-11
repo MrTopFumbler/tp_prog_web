@@ -1,11 +1,11 @@
 // EQUILIBRAGE
 
-const nbObstacles = 22; // Nombre d'obstacles affichés en MÊME TEMPS
+const nbObstacles = 26; // Nombre d'obstacles affichés en MÊME TEMPS
 const vitesseInit = 3.0; // Vitesse de base du joueur
 let obstacleMinSpeed = 3.0; // Vitesse min de base des obstacles
 let obstacleMaxSpeed = 4.0; // Vitesse max de base des obstacles
-const obstacleSpeedIncrease = 0.3; // Augmentation de vitesse des obstacles par niveau
-const maxLevelObstacleSpeed = 7.0; // Vitesse min au niveau max des obstacles
+const obstacleSpeedIncrease = 0.4; // Augmentation de vitesse des obstacles par niveau
+const maxLevelObstacleSpeed = 9.0; // Vitesse min au niveau max des obstacles
 const duree = 20 * 100; // nb secondes * 100 frames pour chaque niveau
 
 // Elements //
@@ -29,9 +29,12 @@ let isAlive = true;
 
 let timer = duree;
 
-const playZoneUpper = 220;
-const playZoneLeft = 40;
-const playZoneRight = 720 - 40;
+const playZoneUpper = 280;
+const playZoneLeft = 0;
+const playZoneRight = 800;
+
+const bg = new Image();
+bg.src = "./sprites/map.png"
 
 // Classes //
 
@@ -64,8 +67,8 @@ class Joueur {
         if(this.x < playZoneLeft) {
             this.x = playZoneLeft;
         }
-        if(this.y > 480) {
-            this.y = 480;
+        if (this.y > canvas.height) {
+            this.y = canvas.height;
         }
         if(this.y < playZoneUpper) {
             this.y = playZoneUpper;
@@ -106,7 +109,7 @@ class Obstacle {
 
     reset() // C'est pareil que le constructeur mais ça évite de détruire et recréer les obstacles
     {
-        this.x = random(0,800); // On fait apparâitre l'obstacle sur n'importe quel x entre 0 et 720
+        this.x = random(0,1000); // On fait apparâitre l'obstacle sur n'importe quel x entre 0 et 800
         this.y = -random(25,100); // On fait apparaître l'obstacle entre 25 et 100px au-dessus de l'écran
         this.dx = -0.7; // L'angle de mouvement l'obstacle
         this.speed = random(obstacleMinSpeed,obstacleMaxSpeed); // Vitesse aléatoire en fonc. du niveau
@@ -133,7 +136,7 @@ class Coin {
 
     reset() {
         this.x = random(playZoneLeft, playZoneRight);
-        this.y = random(playZoneUpper, 480);
+        this.y = random(playZoneUpper, canvas.height);
     }
 
     hide() { // Plutôt que de tout détruire et réinit. hehe
@@ -265,7 +268,7 @@ function handleCoinPickup(item) {
 function manageGame(){
     handleCoinPickup(coin);
     for (item of listeObstacles){
-        if(item.y>480){ // Quand l'obstacle sort de l'écran
+        if(item.y>canvas.height){ // Quand l'obstacle sort de l'écran
             item.reset(); // On pourrait recréer l'obstacle mais flemme...
         }
         else {
@@ -285,25 +288,27 @@ function draw(){
 const id = setInterval(main, 10); // On dessine notre jeu à chaque frame
 function main()
 {
+
     if (isAlive) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
-    joueur.move();
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
+        ctx.drawImage(bg, 0, 0, 800, 600);
+        joueur.move();
 
-    // On dessine TOUT
-    draw();
-    // Gère les obstacles, collisions...
-    manageGame();
-    scoreUp();
+        // On dessine TOUT
+        draw();
+        // Gère les obstacles, collisions...
+        manageGame();
+        scoreUp();
 
-    timer -= 1;
-    textTimer -=1;
-    if (textTimer>0){
-        drawText();
-    }
-    if (timer<=0){
-        timer = duree;
-        levelUp();
-    }
+        timer -= 1;
+        textTimer -=1;
+        if (textTimer>0){
+            drawText();
+        }
+        if (timer<=0){
+            timer = duree;
+            levelUp();
+        }
 
     }
     else{
