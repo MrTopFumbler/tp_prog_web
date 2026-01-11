@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="scriptaccueil.js" defer></script>
     <title>Accueil</title>
-    <!--<script>
-        const pseudos = pseudo
-        localStorage.setItem("pseudos", JSON.stringify(pseudos)); /*stockage en JSON*/
-        window.location.href = "index.html";
-    </script>
-    <script> /*récupérer le pseudo dans une var*/
-        document.getElementById("valider").addEventListener("click", () => {
-            const pseudo = document.getElementById("pseudo").value;
-
-            console.log(pseudo); // vérification
-        });
-    </script>-->
     <style>
          #btn {
             border: 5px solid #73746B;
@@ -71,10 +59,8 @@
 </head>
 <body>
     <div><p id="titre">Choisis ton pseudo</p>
-    <!--<label for="pseudo">Pseudo :</label>-->
     <input type="text" id="pseudo" size=60 placeholder="Entre ton pseudo">
-    <!--<button id="bt2">Valider</button>-->
-    <form action=""><button id="btn" type="submit" formaction="index.html">Jouer</button></form>
+    <button id="btn">Jouer</button>
     </div>
 </body>
 </html>
