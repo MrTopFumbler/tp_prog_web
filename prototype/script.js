@@ -36,8 +36,14 @@ const playZoneRight = 800;
 const bg = new Image();
 bg.src = "./sprites/map.png"
 
-const joueurSprite = new Image();
-joueurSprite.src = "./sprites/personnage.png"
+const joueurSprite0 = new Image();
+joueurSprite0.src = "./sprites/Personnage.png"
+
+const joueurSprite1 = new Image();
+joueurSprite1.src = "./sprites/PersonnagePara1.png"
+
+const joueurSprite2 = new Image();
+joueurSprite2.src = "./sprites/PersonnagePara2.png"
 
 const courses = new Image();
 
@@ -82,23 +88,27 @@ class Joueur {
 	
     draw() {
         if (this.parapluieHP == 0) {
+            ctx.drawImage(joueurSprite0, this.x - 40, this.y - 60, 80, 100);
+
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
             ctx.fill();
             ctx.closePath();
         }
         else if (this.parapluieHP == 1) {
+            ctx.drawImage(joueurSprite1, this.x -40, this.y-60, 80, 100);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = "blue";
+            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
             ctx.fill();
             ctx.closePath();
         }
         else {
+            ctx.drawImage(joueurSprite2, this.x-40, this.y-60, 80, 100);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = "green";
+            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
             ctx.fill();
             ctx.closePath();
         }
