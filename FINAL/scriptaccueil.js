@@ -1,5 +1,6 @@
 
-const btn = document.getElementById ("btn") ;
+const btn = document.getElementById("btn");
+const lienRapport = document.getElementById("rapport");
 
 
 
@@ -16,6 +17,10 @@ btn.addEventListener("click", () => {
     document.location.replace("jeu.html");
   }
   
+});
+
+lienRapport.addEventListener("click", () => {
+    document.location.replace("rapport.pdf");
 });
 
 
