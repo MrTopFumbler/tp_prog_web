@@ -26,6 +26,7 @@ let upKey = false;
 let downKey = false; // Si les boutons sont appuyés ou pas (flemme de faire des masques et tt)
 let score = 0;
 let isAlive = true;
+let gamePaused = false;
 
 let timer = duree;
 
@@ -205,21 +206,20 @@ function random(min, max)
 }
 function keyDown(btn) // TODO: Améliorer + Ajouter des touches
 {
-    if(btn.key === "ArrowRight" || btn.key === "d")
-    {
+    if (btn.key === "ArrowRight" || btn.key === "d") {
         rightKey = true;
     }
-    else if(btn.key === "ArrowLeft" || btn.key === "q")
-    {
+    else if (btn.key === "ArrowLeft" || btn.key === "q") {
         leftKey = true;
     }
-    else if(btn.key === "ArrowUp" || btn.key === "z")
-    {
+    else if (btn.key === "ArrowUp" || btn.key === "z") {
         upKey = true;
     }
-    else if(btn.key === "ArrowDown" || btn.key === "s")
-    {
+    else if (btn.key === "ArrowDown" || btn.key === "s") {
         downKey = true;
+    }
+    else if (btn.key === "p") {
+        pauseGame();
     }
 }
 function keyUp(btn)
@@ -320,10 +320,21 @@ function draw(){
 	}
 }
 
-const id = setInterval(main, 10); // On dessine notre jeu à chaque frame
+let id = setInterval(main, 10); // On dessine notre jeu à chaque frame
+
+function pauseGame() {
+    if (gamePaused == false) {
+        clearInterval(id);
+        gamePaused = true;
+    }
+    else {
+        id = setInterval(main, 10);
+        gamePaused = false;
+    }
+}
+
 function main()
 {
-
     if (isAlive) {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // On efface le canvas à chaque image
         ctx.drawImage(bg, 0, 0, 800, 600);
@@ -339,7 +350,6 @@ function main()
         scoreUp();
 
         timer -= 1;
-        console.debug(timer);
         textTimer -=1;
         if (textTimer>0){
             drawText();
